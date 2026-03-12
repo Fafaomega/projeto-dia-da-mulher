@@ -1,0 +1,246 @@
+body {
+    background-color: black;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+h1, h2{
+    font-family: 'Playfair Display', serif;
+}
+
+
+.blur-overlay {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.blur-overlay.ativo {
+    opacity: 1;
+}
+
+.geral {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to top right, purple, hotpink);
+    padding: 40px;
+    text-align: center;
+    border-radius: 20px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.geral::before {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    /* controla espessura da borda */
+    border-radius: 25px;
+    background: linear-gradient(45deg, #00f0ff, #8a2be2, #00f0ff, #8a2be2);
+    background-size: 300% 300%;
+    animation: neonBorda 6s linear infinite;
+    z-index: -1;
+    filter: blur(8px);
+}
+
+.geral::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 5;
+    border-radius: 20px;
+}
+
+.geral.blur-ativo::after{
+    opacity: 1;
+}
+
+
+
+@keyframes neonBorda {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.conteudo-central {
+    color: rgb(0, 0, 0);
+}
+
+.conteudo-central h1 {
+    text-align: center;
+}
+
+.para-imagem {
+    padding: 20px 40px;
+    border-radius: 10px;
+    margin: 10px 0;
+    color: rgb(0, 0, 0);
+}
+
+/* envelope */
+.envelope {
+    position: relative;
+    width: 500px;
+    min-height: 200px;
+    margin: 40px auto;
+    cursor: pointer;
+    perspective: 1000px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+
+    z-index: 10;
+}
+
+.conteudo {
+    background: white;
+    border-radius: 12px;
+    padding: 0px 20px 20px 20px;
+    /* espaço pra tampa */
+    min-height: 200px;
+    transition: 0.8s;
+}
+
+.tampa {
+    position: absolute;
+    width: 100%;
+    height: 220px;
+    background: #e91e63;
+    clip-path: polygon(0 0, 50% 50%, 100% 0);
+    transform-origin: top;
+    transition: 0.8s;
+    z-index: 2;
+}
+
+.mensagem {
+    position: relative;
+    width: 90%;
+    top: 20px;
+    left: 5%;
+    opacity: 0;
+    transition: opacity 0.8s;
+    z-index: 0;
+    color: rgb(0, 0, 0);
+    margin-top: 80px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.mensagem h2{
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+}
+
+.foto-casal {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 10px;
+    margin-top: -10px;
+    transition: 0.6s ease;
+}
+
+.envelope.aberto{
+    transform: scale(1.1);
+}
+
+.envelope.aberto .foto-casal{
+        box-shadow:
+        0 0 10px rgba(255, 105, 180, 0.6),
+        0 0 20px rgba(138, 43, 226, 0.6);
+        transition-delay: 0.4s;
+}
+
+.envelope.aberto .tampa {
+    transform: rotateX(180deg);
+}
+
+.envelope.aberto .mensagem {
+    opacity: 1;
+    z-index: 3;
+}
+
+.coracao {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: subir 4s linear forwards;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 6px rgb(158, 1, 158));
+    z-index: 2;
+}
+
+@keyframes subir {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.petala {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    pointer-events: none;
+    animation: cair linear infinite;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 6px hotpink);
+    z-index: 2;
+}
+
+@keyframes cair {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(50vh) translateX(30px) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(100vh) translateX(-30px) rotate(360deg);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #c77dff, #9d4edd);
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #b85ffc, #b536ff);
+}
